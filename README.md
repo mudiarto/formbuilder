@@ -5,6 +5,8 @@ Formbuilder is a graphical interface for letting users build their own webforms.
 
 *Formbuilder.js only handles the client-side logic of creating a form. It will output a structured JSON representation of your form, but saving the form, rendering it on the server, and storing users' responses is all up to you. If you're using Rails, there is also [Formbuilder.rb](https://github.com/dobtco/formbuilder-rb), a Rails engine that's designed to provide this server-side functionality.*
 
+mudiarto's note: I added field_id to keep track of form's field id
+
 ## Demo
 [Click here](http://dobtco.github.io/formbuilder/) to see Formbuilder in action.
 
@@ -41,6 +43,7 @@ Keeping with the customizable nature of Formbuilder, you are also able to modify
 SIZE: 'field_options.size'
 UNITS: 'field_options.units'
 LABEL: 'label'
+FIELD_ID: 'field_id'
 FIELD_TYPE: 'field_type'
 REQUIRED: 'required'
 ADMIN_ONLY: 'admin_only'
