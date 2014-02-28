@@ -109,5 +109,10 @@ You'll need [node and npm](http://nodejs.org/) installed.
 3. `grunt watch`
 4. open `example/index.html` and you're all set!
 
+kusno's note: Additional command that may be required
+1. 'npm install -g bower'
+2. 'npm install -g grunt-cli'
+I think it is better also to run this in a separate nodeenv
+
 ## License
 MIT

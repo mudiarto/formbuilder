@@ -25,7 +25,7 @@ __p += '<div class=\'fb-field-label\'>\n  <span data-rv-text="model.' +
 ((__t = ( Formbuilder.options.mappings.LABEL )) == null ? '' : __t) +
 '"></span>\n  <code class=\'field-type\' data-rv-text=\'model.' +
 ((__t = ( Formbuilder.options.mappings.FIELD_TYPE )) == null ? '' : __t) +
-'\'></code>\n  <span class=\'fa fa-arrow-right pull-right\'></span>\n</div>';
+'\'></code>\n  <span class=\'fa fa-arrow-right pull-right\'></span>\n</div>\n';
 
 }
 return __p
@@ -63,11 +63,25 @@ this["Formbuilder"]["templates"]["edit/common"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class=\'fb-edit-section-header\'>Label</div>\n\n<div class=\'fb-common-wrapper\'>\n  <div class=\'fb-label-description\'>\n    ' +
+__p += '<div class=\'fb-edit-section-header\'>Field Id</div>\n\n<div class=\'fb-common-wrapper\'>\n  <div class=\'fb-field-id\'>\n    ' +
+((__t = ( Formbuilder.templates['edit/field_id']() )) == null ? '' : __t) +
+'\n  </div>\n  <div class=\'fb-clear\'></div>\n</div>\n\n<div class=\'fb-edit-section-header\'>Label</div>\n\n<div class=\'fb-common-wrapper\'>\n  <div class=\'fb-label-description\'>\n    ' +
 ((__t = ( Formbuilder.templates['edit/label_description']() )) == null ? '' : __t) +
 '\n  </div>\n  <div class=\'fb-common-checkboxes\'>\n    ' +
 ((__t = ( Formbuilder.templates['edit/checkboxes']() )) == null ? '' : __t) +
 '\n  </div>\n  <div class=\'fb-clear\'></div>\n</div>\n';
+
+}
+return __p
+};
+
+this["Formbuilder"]["templates"]["edit/field_id"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<input type=\'text\' data-rv-input=\'model.' +
+((__t = ( Formbuilder.options.mappings.FIELD_ID )) == null ? '' : __t) +
+'\' />\n';
 
 }
 return __p

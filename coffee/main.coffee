@@ -20,6 +20,7 @@ class Formbuilder
     mappings:
       SIZE: 'field_options.size'
       UNITS: 'field_options.units'
+      FIELD_ID: 'field_id'
       LABEL: 'label'
       FIELD_TYPE: 'field_type'
       REQUIRED: 'required'

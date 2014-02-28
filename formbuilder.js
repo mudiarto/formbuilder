@@ -67,6 +67,7 @@
       mappings: {
         SIZE: 'field_options.size',
         UNITS: 'field_options.units',
+        FIELD_ID: 'field_id',
         LABEL: 'label',
         FIELD_TYPE: 'field_type',
         REQUIRED: 'required',
@@ -98,11 +99,12 @@
     Formbuilder.model = Backbone.DeepModel.extend({
       sync: function() {},
       indexInDOM: function() {
-        var $wrapper,
-          _this = this;
-        $wrapper = $(".fb-field-wrapper").filter((function(_, el) {
-          return $(el).data('cid') === _this.cid;
-        }));
+        var $wrapper;
+        $wrapper = $(".fb-field-wrapper").filter(((function(_this) {
+          return function(_, el) {
+            return $(el).data('cid') === _this.cid;
+          };
+        })(this)));
         return $(".fb-field-wrapper").index($wrapper);
       },
       is_input: function() {
@@ -261,20 +263,23 @@
           return this.initAutosave();
         },
         initAutosave: function() {
-          var _this = this;
           this.formSaved = true;
           this.saveFormButton = this.$el.find(".js-save-form");
           this.saveFormButton.attr('disabled', true).text(Formbuilder.options.dict.ALL_CHANGES_SAVED);
-          setInterval(function() {
-            return _this.saveForm.call(_this);
-          }, 5000);
-          return $(window).bind('beforeunload', function() {
-            if (_this.formSaved) {
-              return void 0;
-            } else {
-              return Formbuilder.options.dict.UNSAVED_CHANGES;
-            }
-          });
+          setInterval((function(_this) {
+            return function() {
+              return _this.saveForm.call(_this);
+            };
+          })(this), 5000);
+          return $(window).bind('beforeunload', (function(_this) {
+            return function() {
+              if (_this.formSaved) {
+                return void 0;
+              } else {
+                return Formbuilder.options.dict.UNSAVED_CHANGES;
+              }
+            };
+          })(this));
         },
         reset: function() {
           this.$responseFields.html('');
@@ -297,18 +302,19 @@
           return this;
         },
         bindWindowScrollEvent: function() {
-          var _this = this;
-          return $(window).on('scroll', function() {
-            var maxMargin, newMargin;
-            if (_this.$fbLeft.data('locked') === true) {
-              return;
-            }
-            newMargin = Math.max(0, $(window).scrollTop());
-            maxMargin = _this.$responseFields.height();
-            return _this.$fbLeft.css({
-              'margin-top': Math.min(maxMargin, newMargin)
-            });
-          });
+          return $(window).on('scroll', (function(_this) {
+            return function() {
+              var maxMargin, newMargin;
+              if (_this.$fbLeft.data('locked') === true) {
+                return;
+              }
+              newMargin = Math.max(0, $(window).scrollTop());
+              maxMargin = _this.$responseFields.height();
+              return _this.$fbLeft.css({
+                'margin-top': Math.min(maxMargin, newMargin)
+              });
+            };
+          })(this));
         },
         showTab: function(e) {
           var $el, first_model, target;
@@ -342,47 +348,51 @@
           }
         },
         setSortable: function() {
-          var _this = this;
           if (this.$responseFields.hasClass('ui-sortable')) {
             this.$responseFields.sortable('destroy');
           }
           this.$responseFields.sortable({
             forcePlaceholderSize: true,
             placeholder: 'sortable-placeholder',
-            stop: function(e, ui) {
-              var rf;
-              if (ui.item.data('field-type')) {
-                rf = _this.collection.create(Formbuilder.helpers.defaultFieldAttrs(ui.item.data('field-type')), {
-                  $replaceEl: ui.item
-                });
-                _this.createAndShowEditView(rf);
-              }
-              _this.handleFormUpdate();
-              return true;
-            },
-            update: function(e, ui) {
-              if (!ui.item.data('field-type')) {
-                return _this.ensureEditViewScrolled();
-              }
-            }
+            stop: (function(_this) {
+              return function(e, ui) {
+                var rf;
+                if (ui.item.data('field-type')) {
+                  rf = _this.collection.create(Formbuilder.helpers.defaultFieldAttrs(ui.item.data('field-type')), {
+                    $replaceEl: ui.item
+                  });
+                  _this.createAndShowEditView(rf);
+                }
+                _this.handleFormUpdate();
+                return true;
+              };
+            })(this),
+            update: (function(_this) {
+              return function(e, ui) {
+                if (!ui.item.data('field-type')) {
+                  return _this.ensureEditViewScrolled();
+                }
+              };
+            })(this)
           });
           return this.setDraggable();
         },
         setDraggable: function() {
-          var $addFieldButtons,
-            _this = this;
+          var $addFieldButtons;
           $addFieldButtons = this.$el.find("[data-field-type]");
           return $addFieldButtons.draggable({
             connectToSortable: this.$responseFields,
-            helper: function() {
-              var $helper;
-              $helper = $("<div class='response-field-draggable-helper' />");
-              $helper.css({
-                width: _this.$responseFields.width(),
-                height: '80px'
-              });
-              return $helper;
-            }
+            helper: (function(_this) {
+              return function() {
+                var $helper;
+                $helper = $("<div class='response-field-draggable-helper' />");
+                $helper.css({
+                  width: _this.$responseFields.width(),
+                  height: '80px'
+                });
+                return $helper;
+              };
+            })(this)
           });
         },
         addAll: function() {
@@ -435,14 +445,15 @@
           return this.scrollLeftWrapper($(".fb-field-wrapper.editing"));
         },
         scrollLeftWrapper: function($responseFieldEl) {
-          var _this = this;
           this.unlockLeftWrapper();
           if (!$responseFieldEl[0]) {
             return;
           }
-          return $.scrollWindowTo($responseFieldEl.offset().top - this.$responseFields.offset().top, 200, function() {
-            return _this.lockLeftWrapper();
-          });
+          return $.scrollWindowTo($responseFieldEl.offset().top - this.$responseFields.offset().top, 200, (function(_this) {
+            return function() {
+              return _this.lockLeftWrapper();
+            };
+          })(this));
         },
         lockLeftWrapper: function() {
           return this.$fbLeft.data('locked', true);
@@ -474,26 +485,27 @@
           return this.formBuilder.trigger('save', payload);
         },
         doAjaxSave: function(payload) {
-          var _this = this;
           return $.ajax({
             url: Formbuilder.options.HTTP_ENDPOINT,
             type: Formbuilder.options.HTTP_METHOD,
             data: payload,
             contentType: "application/json",
-            success: function(data) {
-              var datum, _i, _len, _ref;
-              _this.updatingBatch = true;
-              for (_i = 0, _len = data.length; _i < _len; _i++) {
-                datum = data[_i];
-                if ((_ref = _this.collection.get(datum.cid)) != null) {
-                  _ref.set({
-                    id: datum.id
-                  });
+            success: (function(_this) {
+              return function(data) {
+                var datum, _i, _len, _ref;
+                _this.updatingBatch = true;
+                for (_i = 0, _len = data.length; _i < _len; _i++) {
+                  datum = data[_i];
+                  if ((_ref = _this.collection.get(datum.cid)) != null) {
+                    _ref.set({
+                      id: datum.id
+                    });
+                  }
+                  _this.collection.trigger('sync');
                 }
-                _this.collection.trigger('sync');
-              }
-              return _this.updatingBatch = void 0;
-            }
+                return _this.updatingBatch = void 0;
+              };
+            })(this)
           });
         }
       })
@@ -738,7 +750,7 @@ __p += '<div class=\'fb-field-label\'>\n  <span data-rv-text="model.' +
 ((__t = ( Formbuilder.options.mappings.LABEL )) == null ? '' : __t) +
 '"></span>\n  <code class=\'field-type\' data-rv-text=\'model.' +
 ((__t = ( Formbuilder.options.mappings.FIELD_TYPE )) == null ? '' : __t) +
-'\'></code>\n  <span class=\'fa fa-arrow-right pull-right\'></span>\n</div>';
+'\'></code>\n  <span class=\'fa fa-arrow-right pull-right\'></span>\n</div>\n';
 
 }
 return __p
@@ -776,11 +788,25 @@ this["Formbuilder"]["templates"]["edit/common"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div class=\'fb-edit-section-header\'>Label</div>\n\n<div class=\'fb-common-wrapper\'>\n  <div class=\'fb-label-description\'>\n    ' +
+__p += '<div class=\'fb-edit-section-header\'>Field Id</div>\n\n<div class=\'fb-common-wrapper\'>\n  <div class=\'fb-field-id\'>\n    ' +
+((__t = ( Formbuilder.templates['edit/field_id']() )) == null ? '' : __t) +
+'\n  </div>\n  <div class=\'fb-clear\'></div>\n</div>\n\n<div class=\'fb-edit-section-header\'>Label</div>\n\n<div class=\'fb-common-wrapper\'>\n  <div class=\'fb-label-description\'>\n    ' +
 ((__t = ( Formbuilder.templates['edit/label_description']() )) == null ? '' : __t) +
 '\n  </div>\n  <div class=\'fb-common-checkboxes\'>\n    ' +
 ((__t = ( Formbuilder.templates['edit/checkboxes']() )) == null ? '' : __t) +
 '\n  </div>\n  <div class=\'fb-clear\'></div>\n</div>\n';
+
+}
+return __p
+};
+
+this["Formbuilder"]["templates"]["edit/field_id"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<input type=\'text\' data-rv-input=\'model.' +
+((__t = ( Formbuilder.options.mappings.FIELD_ID )) == null ? '' : __t) +
+'\' />\n';
 
 }
 return __p
