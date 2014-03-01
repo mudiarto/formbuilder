@@ -1,6 +1,6 @@
 Formbuilder.registerField 'radio',
 
-  order: 15
+  order: 14
 
   view: """
     <% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>
@@ -29,7 +29,7 @@ Formbuilder.registerField 'radio',
   """
 
   addButton: """
-    <span class="symbol"><span class="fa fa-circle-o"></span></span> Multiple Choice
+    <span class="symbol"><span class="fa fa-circle-o"></span></span> Radio
   """
 
   defaultAttributes: (attrs) ->

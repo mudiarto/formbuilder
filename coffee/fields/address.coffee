@@ -1,4 +1,4 @@
-Formbuilder.registerField 'address',
+Formbuilder.registerField 'address.unsupported',
 
   order: 50
 
@@ -38,5 +38,5 @@ Formbuilder.registerField 'address',
   edit: ""
 
   addButton: """
-    <span class="symbol"><span class="fa fa-home"></span></span> Address
+    <span class="symbol"><span class="fa fa-home"></span></span> Address - Not supported
   """

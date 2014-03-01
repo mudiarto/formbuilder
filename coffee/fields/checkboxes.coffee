@@ -1,6 +1,6 @@
 Formbuilder.registerField 'checkboxes',
 
-  order: 10
+  order: 55
 
   view: """
     <% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>
@@ -29,7 +29,7 @@ Formbuilder.registerField 'checkboxes',
   """
 
   addButton: """
-    <span class="symbol"><span class="fa fa-square-o"></span></span> Checkboxes
+    <span class="symbol"><span class="fa fa-square-o"></span></span> Checkboxes - Not Supported
   """
 
   defaultAttributes: (attrs) ->

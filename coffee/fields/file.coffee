@@ -9,5 +9,5 @@ Formbuilder.registerField 'file',
   edit: ""
 
   addButton: """
-    <span class="symbol"><span class="fa fa-cloud-upload"></span></span> File
+    <span class="symbol"><span class="fa fa-cloud-upload"></span></span> File - Not Supported
   """

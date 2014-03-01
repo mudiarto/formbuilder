@@ -1,6 +1,6 @@
 Formbuilder.registerField 'number',
 
-  order: 30
+  order: 17
 
   view: """
     <input type='text' />
